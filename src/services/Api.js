@@ -26,7 +26,7 @@ export const obtenerLibroPorId = async (id) => {
 
 
  const apiautor = axios.create({
-  baseURL: "https://microservices-autor-2.onrender.com/api",
+  baseURL: "https://microeservicioautor.somee.com/api",
   headers: {
     "Content-Type": "application/json",
    },

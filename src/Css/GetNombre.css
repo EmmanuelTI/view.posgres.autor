@@ -1,0 +1,80 @@
+.autor-buscar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.input-id {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.input-id:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+.btn-buscar,
+.btn-limpiar {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-limpiar {
+  background-color: #f44336;
+}
+
+.btn-buscar:hover {
+  background-color: #45a049;
+}
+
+.btn-limpiar:hover {
+  background-color: #e53935;
+}
+
+.mensaje-error {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.card-resultado {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.card-resultado h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.card-resultado p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}

@@ -19,19 +19,25 @@ const AutorBuscar = ({ onBuscarAutor }) => {
 
     try {
       let data;
-      // Validar si es GUID para buscar por ID
       const esGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(input);
 
       if (esGuid) {
-        data = await obtenerAutorPorId(input); // Buscar por ID (GUID)
+        data = await obtenerAutorPorId(input);
       } else {
-        data = await obtenerAutorPorNombre(input); // Buscar por nombre
+        data = await obtenerAutorPorNombre(input);
       }
       onBuscarAutor(data);
     } catch (error) {
       console.error(error);
       setError("No se encontró el autor o hubo un error al obtenerlo.");
     }
+  };
+
+  const limpiar = () => {
+    setInput("");
+    setError(null);
+    setInputError("");
+    onBuscarAutor(null); // Indica al padre que muestre todos los autores
   };
 
   return (
@@ -47,6 +53,10 @@ const AutorBuscar = ({ onBuscarAutor }) => {
 
       <button onClick={buscarAutor} className="btn-buscar">
         Buscar
+      </button>
+
+      <button onClick={limpiar} className="btn-limpiar" style={{ marginLeft: "10px" }}>
+        Ver todos
       </button>
 
       {error && <p className="mensaje-error">{error}</p>}
