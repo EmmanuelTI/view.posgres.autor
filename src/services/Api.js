@@ -1,12 +1,12 @@
 import axios from "axios";
 
-// ---------------------- LIBROS (sigue con Axios porque funciona) ------------------------
 const apiClient = axios.create({
-  baseURL: "https://microservices-libro.onrender.com/api",
+  baseURL: "https://microservices-libro.onrender.com/api", // Reemplaza <puerto> con el puerto de tu API.
   headers: {
     "Content-Type": "application/json",
   },
 });
+
 
 export const obtenerLibros = async () => {
   const response = await apiClient.get("/LibroMaterial");
@@ -23,72 +23,37 @@ export const obtenerLibroPorId = async (id) => {
   return response.data;
 };
 
-// ---------------------- AUTORES (con fetch para evitar error HTTP/2) ------------------------
 
-const baseUrlAutor = "https://microeservicioautor.somee.com/api/Autor";
+
+ const apiautor = axios.create({
+  baseURL: "https://autoreslibro.somee.com/api",
+  headers: {
+    "Content-Type": "application/json",
+   },
+ });
+
+
 
 export const obtenerAutores = async () => {
-  const response = await fetch(baseUrlAutor, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Connection": "close",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Error al obtener autores: ${response.status}`);
-  }
-
-  return await response.json();
+  const response = await apiautor.get("/Autor");
+  return response.data;
 };
 
 export const crearAutor = async (autor) => {
-  const response = await fetch(baseUrlAutor, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Connection": "close",
-    },
-    body: JSON.stringify(autor),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Error al crear autor: ${response.status} - ${errorText}`);
-  }
-
-  return await response.json();
+  const response = await apiautor.post("/Autor", autor);
+  return response.data;
 };
 
 export const obtenerAutorPorId = async (id) => {
-  const response = await fetch(`${baseUrlAutor}/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Connection": "close",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Error al obtener autor por ID: ${response.status}`);
-  }
-
-  return await response.json();
+  const response = await apiautor.get(`/Autor/${id}`);
+  return response.data;
 };
-
 export const obtenerAutorPorNombre = async (nombre) => {
-  const response = await fetch(`${baseUrlAutor}/nombre/${nombre}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Connection": "close",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Error al obtener autor por nombre: ${response.status}`);
-  }
-
-  return await response.json();
+  const response = await apiautor.get(`/Autor/nombre/${nombre}`);
+  return response.data;
 };
+
+
+
+
+
