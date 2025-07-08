@@ -13,47 +13,53 @@ const AgregarAutor = () => {
   const [fechaError, setFechaError] = useState("");
 
   const manejarSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Limpiar errores previos
-    setNombreError("");
-    setApellidoError("");
-    setFechaError("");
+  setNombreError("");
+  setApellidoError("");
+  setFechaError("");
 
-    let valido = true;
+  let valido = true;
 
-    if (!nombre.trim()) {
-      setNombreError("El nombre es obligatorio");
-      valido = false;
-    }
-    if (!apellido.trim()) {
-      setApellidoError("El apellido es obligatorio");
-      valido = false;
-    }
-    if (!fechaNacimiento) {
-      setFechaError("La fecha de nacimiento es obligatoria");
-      valido = false;
-    }
+  if (!nombre.trim()) {
+    setNombreError("El nombre es obligatorio");
+    valido = false;
+  }
+  if (!apellido.trim()) {
+    setApellidoError("El apellido es obligatorio");
+    valido = false;
+  }
+  if (!fechaNacimiento) {
+    setFechaError("La fecha de nacimiento es obligatoria");
+    valido = false;
+  }
 
-    if (!valido) return;
+  if (!valido) return;
 
-    const nuevoAutor = {
-      nombre,
-      apellido,
-      fechaNacimiento,
-    };
+  // Convertir fechaNacimiento a ISO string con zona UTC
+  const fechaIso = new Date(fechaNacimiento).toISOString();
 
-    try {
-      await crearAutor(nuevoAutor); 
-      alert("Autor creado exitosamente");
-      setNombre("");
-      setApellido("");
-      setFechaNacimiento("");
-    } catch (error) {
-      console.error("Error al crear el autor:", error);
-      alert("Hubo un error al crear el autor");
-    }
+  const nuevoAutor = {
+    nombre,
+    apellido,
+    fechaNacimiento: fechaIso,
   };
+
+  console.log("Datos que se enviarán al backend:", nuevoAutor);
+
+  try {
+    const response = await crearAutor(nuevoAutor);
+    console.log("Respuesta backend:", response);
+    alert("Autor creado exitosamente");
+    setNombre("");
+    setApellido("");
+    setFechaNacimiento("");
+  } catch (error) {
+    console.error("Error al crear el autor:", error.response || error);
+    alert("Hubo un error al crear el autor");
+  }
+};
+
 
   return (
     <div className="form-container">
