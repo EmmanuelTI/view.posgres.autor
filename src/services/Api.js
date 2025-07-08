@@ -29,10 +29,8 @@ export const obtenerLibroPorId = async (id) => {
   baseURL: "https://microeservicioautor.somee.com/api",
   headers: {
     "Content-Type": "application/json",
-    "Connection": "close", // 🧠 Esta línea puede forzar HTTP/1.1
-  },
-});
-
+   },
+ });
 
 
 
