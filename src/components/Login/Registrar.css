@@ -86,13 +86,29 @@
   color: #77bfff;
 }
 
-.registrar-message {
-  margin-top: 15px;
-  color: #ffdddd;
-  background-color: rgba(255, 0, 0, 0.2);
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-align: center;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  font-weight: 500;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
+
+.modal-content {
+  background-color: #ffffff;
+  color: rgb(10, 9, 9); 
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);  
+  text-align: center;
+  max-width: 200px;
+  width: 90%;
+  font-size: 20px;
+  font-weight: bold;
+}
+

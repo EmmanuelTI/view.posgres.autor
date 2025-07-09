@@ -8,19 +8,29 @@ const ForgotPassword = ({ goBack }) => {
   const [answer, setAnswer] = useState("");
   const [answerVerified, setAnswerVerified] = useState(false);
   const [newPassword, setNewPassword] = useState("");
-  const [message, setMessage] = useState("");
 
+  const [modalMessage, setModalMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const showMessage = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const handleVerifyUser = async () => {
     if (!username.trim()) {
-      setMessage("Ingresa un usuario.");
+      showMessage("Ingresa un usuario.");
       return;
     }
 
     try {
       const user = await obtenerUsuarioPorNombre(username.trim());
       if (!user) {
-        setMessage("Usuario no encontrado.");
+        showMessage("Usuario no encontrado.");
         setUserFound(null);
         return;
       }
@@ -30,32 +40,32 @@ const ForgotPassword = ({ goBack }) => {
         secretQuestion: user.preguntaSecreta,
         secretAnswer: user.respuestaSecreta,
       });
-      setMessage("");
     } catch (error) {
-      setMessage("Error al conectarse al servidor.");
+      showMessage("Error al conectarse al servidor.");
       setUserFound(null);
     }
   };
 
-
   const handleVerifyAnswer = () => {
     if (!answer.trim()) {
-      setMessage("Ingresa la respuesta.");
+      showMessage("Ingresa la respuesta.");
       return;
     }
 
-    if (answer.trim().toLowerCase() === userFound.secretAnswer?.trim().toLowerCase()) {
+    if (
+      answer.trim().toLowerCase() ===
+      userFound.secretAnswer?.trim().toLowerCase()
+    ) {
       setAnswerVerified(true);
-      setMessage("Respuesta correcta. Ahora puedes cambiar tu contraseña.");
+      showMessage("Respuesta correcta. Ahora puedes cambiar tu contraseña.");
     } else {
-      setMessage("Respuesta incorrecta.");
+      showMessage("Respuesta incorrecta.");
     }
   };
 
-  
   const handleChangePassword = async () => {
     if (!newPassword) {
-      setMessage("Ingresa la nueva contraseña.");
+      showMessage("Ingresa la nueva contraseña.");
       return;
     }
 
@@ -64,10 +74,9 @@ const ForgotPassword = ({ goBack }) => {
         nombreUsuario: userFound.username,
         nuevaPassword: newPassword,
       });
-      setMessage("¡Contraseña actualizada con éxito!");
-      
+      showMessage("✅ ¡Contraseña actualizada con éxito!");
     } catch (error) {
-      setMessage("Error al actualizar la contraseña.");
+      showMessage("❌ Error al actualizar la contraseña.");
     }
   };
 
@@ -76,7 +85,6 @@ const ForgotPassword = ({ goBack }) => {
       <div className="fp-container">
         <h2 className="fp-title">Recuperar Contraseña</h2>
 
-        
         {!userFound && (
           <>
             <input
@@ -92,7 +100,6 @@ const ForgotPassword = ({ goBack }) => {
           </>
         )}
 
-        
         {userFound && !answerVerified && (
           <>
             <p className="fp-question">{userFound.secretQuestion}</p>
@@ -125,13 +132,22 @@ const ForgotPassword = ({ goBack }) => {
           </>
         )}
 
-       <button onClick={goBack} className="fp-back-button">
-  Volver al login
-</button>
-
-
-        {message && <p className="fp-message">{message}</p>}
+        <button onClick={goBack} className="fp-back-button">
+          Volver al login
+        </button>
       </div>
+
+      
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>{modalMessage}</p>
+            <button className="close-button" onClick={closeModal}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
