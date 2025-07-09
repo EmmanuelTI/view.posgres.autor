@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://microservices-libro.onrender.com/api", // Reemplaza <puerto> con el puerto de tu API.
+  baseURL: "https://microservices-libro.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -54,6 +54,46 @@ export const obtenerAutorPorNombre = async (nombre) => {
 };
 
 
+const apilogin = axios.create({
+  baseURL: "https://localhost:7241/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+
+export const obtenerUsuarios = async () => {
+  const response = await apilogin.get("/usuarios");
+  return response.data;
+};
+
+export const crearUsuario = async (usuario) => {
+  const response = await apilogin.post("/registro", usuario);
+  return response.data;
+};
+
+
+export const obtenerUsuarioPorNombre = async (nombreUsuario) => {
+  const response = await apilogin.get(`/usuario/${nombreUsuario}`);
+  return response.data;
+};
+
+
+export const iniciarSesion = async ({ nombreUsuario, password }) => {
+  const response = await apilogin.post("/login", {
+    nombreUsuario,
+    password,
+  });
+  return response.data;
+};
+
+export const actualizarPassword = async ({ nombreUsuario, nuevaPassword }) => {
+  const response = await apilogin.put("/actualizarpassword", {
+    nombreUsuario,
+    nuevaPassword,
+  });
+  return response.data;
+};
 
 
 

@@ -36,7 +36,7 @@ const AgregarAutor = () => {
 
   if (!valido) return;
 
-  // Convertir fechaNacimiento a ISO string con zona UTC
+ 
   const fechaIso = new Date(fechaNacimiento).toISOString();
 
   const nuevoAutor = {

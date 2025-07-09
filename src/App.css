@@ -1,13 +1,19 @@
-/* Contenedor general */
+
 .app-container {
-  display: flex;
-  min-height: 100vh;
   font-family: 'Arial', sans-serif;
+  min-height: 100vh;
+  background-color: transparent;
+  display: block;
+}
+
+.app-container.authenticated {
+  display: flex;
   background-color: #f7f7f7;
 }
 
-/* Sidebar lateral */
+
 .sidebar {
+  position: relative; 
   width: 250px;
   background-color: #010d26;
   color: white;
@@ -15,9 +21,11 @@
   box-sizing: border-box;
   border-radius: 0 8px 8px 0;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Logo */
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -39,12 +47,11 @@
   letter-spacing: 2px;
 }
 
-/* Menú secciones */
+
 .menu-section {
   margin-bottom: 20px;
 }
 
-/* Título de sección (botón para desplegar) */
 .menu-title {
   background: none;
   border: none;
@@ -58,7 +65,6 @@
   user-select: none;
 }
 
-/* Submenú */
 .submenu {
   display: flex;
   flex-direction: column;
@@ -66,7 +72,7 @@
   gap: 10px;
 }
 
-/* Links de navegación */
+
 .nav-link {
   color: white;
   font-weight: 600;
@@ -86,9 +92,25 @@
   color: #010d26;
 }
 
-/* Contenido principal */
+
 .main-content {
   flex-grow: 1;
   padding: 20px;
   box-sizing: border-box;
+}
+
+
+.logout-icon {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.logout-icon:hover {
+  color: #e74c3c;
 }

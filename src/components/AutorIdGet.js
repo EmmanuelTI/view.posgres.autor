@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { obtenerAutorPorId, obtenerAutorPorNombre } from "../services/Api";
 import "../Css/GetId.css";
 
@@ -6,17 +6,33 @@ const AutorBuscar = ({ onBuscarAutor }) => {
   const [input, setInput] = useState("");
   const [error, setError] = useState(null);
   const [inputError, setInputError] = useState("");
+  const debounceTimeout = useRef(null);
 
-  const buscarAutor = async () => {
+  useEffect(() => {
+    // Limpiar error previo
     setError(null);
+    setInputError("");
 
+    // Si input está vacío, muestra todos (limpiar filtro)
     if (!input.trim()) {
-      setInputError("El ID o Nombre es obligatorio");
+      onBuscarAutor(null);
       return;
     }
 
-    setInputError("");
+    // Debounce para esperar que usuario termine de escribir
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
+    debounceTimeout.current = setTimeout(() => {
+      buscarAutor();
+    }, 500); // espera 500ms después del último cambio para buscar
+
+    // Cleanup al desmontar o cambiar input
+    return () => {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+    };
+  }, [input]);
+
+  const buscarAutor = async () => {
     try {
       let data;
       const esGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(input);
@@ -37,7 +53,7 @@ const AutorBuscar = ({ onBuscarAutor }) => {
     setInput("");
     setError(null);
     setInputError("");
-    onBuscarAutor(null); // Indica al padre que muestre todos los autores
+    onBuscarAutor(null);
   };
 
   return (
@@ -51,9 +67,7 @@ const AutorBuscar = ({ onBuscarAutor }) => {
       />
       {inputError && <p className="mensaje-error">{inputError}</p>}
 
-      <button onClick={buscarAutor} className="btn-buscar">
-        Buscar
-      </button>
+   
 
       <button onClick={limpiar} className="btn-limpiar" style={{ marginLeft: "10px" }}>
         Ver todos

@@ -1,0 +1,98 @@
+.registrar-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background: url("https://png.pngtree.com/background/20230517/original/pngtree-library-with-spiral-staircase-and-books-picture-image_2633103.jpg")
+    no-repeat center center;
+  background-size: cover;
+
+  font-family: Arial, sans-serif;
+}
+
+.registrar-container {
+  max-width: 400px;
+  width: 100%;
+  background-color: rgba(1, 19, 32, 0.85);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  color: white;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registrar-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.registrar-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.registrar-input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Botón principal */
+.registrar-button {
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 12px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.registrar-button:hover {
+  background-color: transparent;
+  color: #77bfff;
+}
+
+
+.fp-back-button,
+.volver-button {
+  margin-top: 12px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+}
+
+.fp-back-button:hover,
+.volver-button:hover {
+  background-color: transparent;
+  color: #77bfff;
+}
+
+.registrar-message {
+  margin-top: 15px;
+  color: #ffdddd;
+  background-color: rgba(255, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+  width: 100%;
+  font-weight: 500;
+}
