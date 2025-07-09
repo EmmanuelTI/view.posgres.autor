@@ -1,0 +1,57 @@
+.libro-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px auto;
+  max-width: 450px;
+  text-align: center;
+  color: #333;
+}
+
+.titulo {
+  color: #eaedf0;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.input-id {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 15px;
+  border: 1.5px solid #747272;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-id:focus {
+  outline: none;
+  border-color: #000205;
+  box-shadow: 0 0 8px rgba(28, 78, 137, 0.4);
+}
+
+.btn-buscar{
+  margin-left: 10px;
+  padding: 12px 20px;
+  background-color: #4c91af;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.btn-buscar:hover{
+  background-color: #1d4e89;
+}
+
+.mensaje-error {
+  color: #e03e3e;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+
+

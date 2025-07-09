@@ -1,55 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { obtenerAutorPorId, obtenerAutorPorNombre } from "../services/Api";
-import "../Css/GetId.css";
+import "../Css/AutorIdGet.css";
 
 const AutorBuscar = ({ onBuscarAutor }) => {
-  const [input, setInput] = useState("");
-  const [error, setError] = useState(null);
-  const [inputError, setInputError] = useState("");
+  const [valorEntrada, setValorEntrada] = useState("");
+  const [mensajeError, setMensajeError] = useState(null);
+  const [mensajeEntradaInvalida, setMensajeEntradaInvalida] = useState("");
 
-  const buscarAutor = async () => {
-    setError(null);
+  useEffect(() => {
+    // Si el input queda vacío, limpiamos búsqueda
+    if (valorEntrada.trim() === "") {
+      onBuscarAutor(null);
+      setMensajeError(null);
+      setMensajeEntradaInvalida("");
+    }
+  }, [valorEntrada, onBuscarAutor]);
 
-    if (!input.trim()) {
-      setInputError("El ID o Nombre es obligatorio");
+  const manejarBusqueda = async () => {
+    setMensajeError(null);
+
+    if (!valorEntrada.trim()) {
+      setMensajeEntradaInvalida("El ID o Nombre es obligatorio");
       return;
     }
 
-    setInputError("");
+    setMensajeEntradaInvalida("");
 
     try {
-      let data;
-      // Validar si es GUID para buscar por ID
-      const esGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(input);
+      let autorEncontrado;
+      const esGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(valorEntrada);
 
       if (esGuid) {
-        data = await obtenerAutorPorId(input); // Buscar por ID (GUID)
+        autorEncontrado = await obtenerAutorPorId(valorEntrada);
       } else {
-        data = await obtenerAutorPorNombre(input); // Buscar por nombre
+        autorEncontrado = await obtenerAutorPorNombre(valorEntrada);
       }
-      onBuscarAutor(data);
+
+      onBuscarAutor(autorEncontrado);
     } catch (error) {
       console.error(error);
-      setError("No se encontró el autor o hubo un error al obtenerlo.");
+      setMensajeError("No se encontró el autor o hubo un error al obtenerlo.");
     }
   };
 
   return (
-    <div className="autor-buscar-container">
+    <div className="contenedor-busqueda-autor">
       <input
         type="text"
         placeholder="Ingresa el ID o Nombre del autor"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="input-id"
+        value={valorEntrada}
+        onChange={(e) => setValorEntrada(e.target.value)}
+        className="campo-busqueda-autor"
       />
-      {inputError && <p className="mensaje-error">{inputError}</p>}
+      {mensajeEntradaInvalida && <p className="texto-error">{mensajeEntradaInvalida}</p>}
 
-      <button onClick={buscarAutor} className="btn-buscar">
+      <button onClick={manejarBusqueda} className="boton-buscar-autor">
         Buscar
       </button>
 
-      {error && <p className="mensaje-error">{error}</p>}
+      {mensajeError && <p className="texto-error">{mensajeError}</p>}
     </div>
   );
 };

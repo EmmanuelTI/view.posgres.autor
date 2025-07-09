@@ -1,0 +1,70 @@
+:root {
+  --color-base: #ffffff;
+  --color-secundario: #005c99;
+  --color-acento: #00bcd4;
+  --color-texto: #000000;
+  --color-borde: #cccccc;
+  --color-input-bg: #ffffff;
+  --color-input-text: #000000;
+  --color-placeholder: #888888;
+  --color-error: #d32f2f;
+  --color-btn-bg: #00bcd4;
+  --color-btn-text: #ffffff;
+  --color-btn-hover: #00a2b8;
+}
+
+.contenedor-busqueda-autor {
+
+  max-width: 600px;
+  margin: 2rem auto;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--color-texto);
+}
+
+.grupo-busqueda-horizontal {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.campo-busqueda-autor {
+  flex: 1;
+  min-width: 400px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 0.5rem;
+  background-color: var(--color-input-bg);
+  color: var(--color-input-text);
+  font-size: 1rem;
+}
+
+.campo-busqueda-autor::placeholder {
+  color: var(--color-placeholder);
+}
+
+.boton-buscar-autor {
+  background-color: var(--color-btn-bg);
+  color: var(--color-btn-text);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+ margin-left: 10px;
+}
+
+
+
+.boton-buscar-autor:hover {
+  background-color: var(--color-btn-hover);
+}
+
+.texto-error {
+  color: var(--color-error);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}

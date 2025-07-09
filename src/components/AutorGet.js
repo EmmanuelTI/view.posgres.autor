@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { obtenerAutores } from "../services/Api";
 import AutorBuscar from "./AutorIdGet";
-import "../Css/Get.css";
+import "../Css/ListarAutores.css";
 
 const ListarAutores = () => {
   const [autores, setAutores] = useState([]);
-  const [autorSeleccionado, setAutorSeleccionado] = useState(null); // Estado para el autor buscado
+  const [autorSeleccionado, setAutorSeleccionado] = useState(null);
 
   useEffect(() => {
     const fetchAutores = async () => {
@@ -20,19 +20,19 @@ const ListarAutores = () => {
     fetchAutores();
   }, []);
 
-  // Callback para manejar el autor buscado desde AutorBuscar
+  // Función para manejar la búsqueda, si es null o vacío mostramos todo
   const handleBuscarAutor = (autor) => {
-    setAutorSeleccionado(autor);
+    if (!autor) {
+      setAutorSeleccionado(null); // Mostrar todos si no hay autor
+    } else {
+      setAutorSeleccionado(autor);
+    }
   };
 
   return (
     <div className="autores-container">
-      <h1 className="titulo">Listado de Autores</h1>
-      
-      {/* Componente de búsqueda */}
       <AutorBuscar onBuscarAutor={handleBuscarAutor} />
 
-      {/* Si hay un autor seleccionado, mostrar solo ese autor */}
       {autorSeleccionado ? (
         <div className="tarjeta-autor">
           <h3 className="subtitulo">Detalles del Autor</h3>
@@ -49,15 +49,9 @@ const ListarAutores = () => {
           <p>
             <strong>GUID:</strong> {autorSeleccionado.autorLibroGuid}
           </p>
-          <button
-            className="btn-reset"
-            onClick={() => setAutorSeleccionado(null)} // Permite volver al listado
-          >
-            Mostrar todos los autores
-          </button>
+          {/* Quitamos el botón de "Mostrar todos" */}
         </div>
       ) : (
-        // Si no hay autor seleccionado, mostrar todos los autores
         <div className="cards-grid">
           {autores.map((autor) => (
             <div className="card" key={autor.autorLibroId}>

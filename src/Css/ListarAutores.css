@@ -1,0 +1,60 @@
+.detalle-subtitulo {
+  font-size: 1.8rem;
+  color: var(--color-acento);
+  margin-bottom: 1rem;
+}
+
+.grid-tarjetas-autores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* reducido a 200px */
+  gap: 1rem; /* menos espacio */
+  margin-top: 2rem;
+}
+
+.tarjeta-autor {
+  background-color: #D3DCE6;
+  border: 1px solid var(--color-borde);
+  border-radius: 1rem;
+  padding: 1rem; /* menos padding */
+  max-width: 320px; /* limitar ancho máximo */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 0.9rem; /* texto un poco más pequeño */
+}
+
+.tarjeta-autor:hover {
+  background-color: var(--color-hover-bg);
+  transform: translateY(-5px);
+}
+
+.tarjeta-nombre-autor {
+  font-size: 1.2rem; /* título más pequeño */
+  margin-bottom: 0.3rem;
+  color: var(--color-acento);
+}
+
+.detalle-autor {
+  background-color: var(--color-card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-borde);
+  max-width: 500px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.boton-volver-lista {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--color-btn-bg);
+  color: var(--color-btn-text);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.boton-volver-lista:hover {
+  background-color: var(--color-btn-hover);
+}
