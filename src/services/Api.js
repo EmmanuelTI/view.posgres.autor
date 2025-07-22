@@ -1,12 +1,20 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://microservices-libro.onrender.com/api",
+  baseURL: "https://libromsql-token.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
+
+apiClient.interceptors.request.use(config => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 export const obtenerLibros = async () => {
   const response = await apiClient.get("/LibroMaterial");
@@ -23,15 +31,28 @@ export const obtenerLibroPorId = async (id) => {
   return response.data;
 };
 
-
-
- const apiautor = axios.create({
+const apiautor = axios.create({
   baseURL: "https://autoreslibro.somee.com/api",
   headers: {
     "Content-Type": "application/json",
-   },
- });
+  },
+}); 
 
+
+apiautor.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    console.log("Interceptor - Token obtenido:", token); 
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log("Interceptor - Header Authorization agregado:", config.headers.Authorization);
+    } else {
+      console.log("Interceptor - No hay token para enviar");
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 
 export const obtenerAutores = async () => {
@@ -48,11 +69,11 @@ export const obtenerAutorPorId = async (id) => {
   const response = await apiautor.get(`/Autor/${id}`);
   return response.data;
 };
+
 export const obtenerAutorPorNombre = async (nombre) => {
   const response = await apiautor.get(`/Autor/nombre/${nombre}`);
   return response.data;
 };
-
 
 const apilogin = axios.create({
   baseURL: "https://microservicio-mongo.onrender.com/api",
@@ -60,6 +81,7 @@ const apilogin = axios.create({
     "Content-Type": "application/json",
   },
 });
+
 
 
 export const obtenerUsuarios = async () => {
@@ -72,12 +94,10 @@ export const crearUsuario = async (usuario) => {
   return response.data;
 };
 
-
 export const obtenerUsuarioPorNombre = async (nombreUsuario) => {
   const response = await apilogin.get(`/usuario/${nombreUsuario}`);
   return response.data;
 };
-
 
 export const iniciarSesion = async ({ nombreUsuario, password }) => {
   const response = await apilogin.post("/login", {
@@ -94,6 +114,3 @@ export const actualizarPassword = async ({ nombreUsuario, nuevaPassword }) => {
   });
   return response.data;
 };
-
-
-

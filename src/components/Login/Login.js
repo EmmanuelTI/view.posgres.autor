@@ -15,13 +15,19 @@ const Login = ({ onLogin, onShowRegistrar }) => {
     setCargando(true);
 
     try {
-      const usuario = await iniciarSesion({
+      // La respuesta ahora incluye { usuario, token }
+      const respuesta = await iniciarSesion({
         nombreUsuario: username.trim(),
         password: password,
       });
 
+      // Guardar token JWT para futuras peticiones
+      localStorage.setItem("token", respuesta.token);
+
+      // Guardar info del usuario
+      localStorage.setItem("usuario", JSON.stringify(respuesta.usuario));
+
       localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("usuario", JSON.stringify(usuario));
       onLogin();
     } catch (error) {
       if (error.response?.status === 401) {
@@ -75,14 +81,12 @@ const Login = ({ onLogin, onShowRegistrar }) => {
         </button>
       </div>
 
-    
       {cargando && (
         <div className="overlay">
           <div className="loader"></div>
         </div>
       )}
 
-   \
       {modalMensaje && !cargando && (
         <div className="overlay">
           <div className="modal-content">
