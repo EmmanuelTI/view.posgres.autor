@@ -7,7 +7,9 @@ import AgregarLibro from "./components/Libros/LibroPost";
 import ListarAutor from "./components/AutorGet";
 import AgregarAutor from "./components/AutorPost";
 import Login from "./components/Login/Login";
-import Registrar from "./components/Login/Registrar";  // Importa registrar
+import Registrar from "./components/Login/Registrar";  
+import { cerrarSesion } from "./services/Api"; 
+
 import "./App.css";
 import logo from "./img/4852762.jpg";
 
@@ -89,10 +91,17 @@ const App = () => {
     setIsAuthenticated(true);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("usuario");
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      await cerrarSesion();  
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("token"); 
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    
+    }
   };
 
   if (!isAuthenticated) {

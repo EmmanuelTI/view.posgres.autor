@@ -107,10 +107,16 @@ export const iniciarSesion = async ({ nombreUsuario, password }) => {
   return response.data;
 };
 
+  export const cerrarSesion = async () => {
+  const response = await apilogin.post("/logout");
+  return response.data;  // aquí vendrá { mensaje: "Sesión cerrada correctamente." }
+};
+
 export const actualizarPassword = async ({ nombreUsuario, nuevaPassword }) => {
   const response = await apilogin.put("/actualizarpassword", {
     nombreUsuario,
     nuevaPassword,
   });
   return response.data;
+
 };

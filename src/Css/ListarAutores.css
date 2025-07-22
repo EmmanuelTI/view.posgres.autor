@@ -6,20 +6,22 @@
 
 .grid-tarjetas-autores {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* reducido a 200px */
-  gap: 1rem; /* menos espacio */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas */
+  gap: 1rem;
   margin-top: 2rem;
+  justify-items: center;
 }
 
 .tarjeta-autor {
   background-color: #D3DCE6;
   border: 1px solid var(--color-borde);
   border-radius: 1rem;
-  padding: 1rem; /* menos padding */
-  max-width: 320px; /* limitar ancho máximo */
+  padding: 1rem;
+  max-width: 100%;
+  width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s, transform 0.2s;
-  font-size: 0.9rem; /* texto un poco más pequeño */
+  font-size: 0.9rem;
 }
 
 .tarjeta-autor:hover {
@@ -28,7 +30,7 @@
 }
 
 .tarjeta-nombre-autor {
-  font-size: 1.2rem; /* título más pequeño */
+  font-size: 1.2rem;
   margin-bottom: 0.3rem;
   color: var(--color-acento);
 }
@@ -57,4 +59,51 @@
 
 .boton-volver-lista:hover {
   background-color: var(--color-btn-hover);
+}
+
+.paginacion {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-25%); /* 🔄 Menos hacia la izquierda = más a la derecha */
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 500;
+  border-radius: 0.5rem;
+}
+
+
+.paginacion button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.paginacion button.activo {
+  background-color: #4caf50;
+  color: white;
+}
+
+.paginacion button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* 🔁 Responsive: menos columnas en pantallas pequeñas */
+@media (max-width: 768px) {
+  .grid-tarjetas-autores {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-tarjetas-autores {
+    grid-template-columns: 1fr;
+  }
 }
